@@ -1,4 +1,4 @@
-{% load i18n admin_static bootstrapped_goodies_tags staticfiles admin_bootstrapped_plus %}
+{% load i18n admin_static bootstrapped_goodies_tags staticfiles suit_menu %}
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 {% comment %}
 
@@ -150,29 +150,30 @@ Email: gkarak@9-dev.com
     <div id="sidebar-wrapper">
         <div class="sidebar inner">
             <div class="panel-group" id="sidebar-accordion" role="tablist" aria-multiselectable="true">
-                {% get_app_list as admin_app_list %}
+                {% get_menu request as admin_app_list %}
                 {% for app in admin_app_list %}
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="{{ app.app_label }}">
+                        <div class="panel-heading" role="tab" id="{{ app.label }}">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#sidebar-accordion"
-                                   href="#collapse-{{ app.app_label }}" aria-expanded="true"
-                                   aria-controls="collapse-{{ app.app_label }}">
-                                    {% render_app_name app %}
+                                   href="#collapse-{{ app.label }}" aria-expanded="true"
+                                   aria-controls="collapse-{{ app.label }}">
+                                   {{ app.label }}
+                                   {#% render_app_name app %#}
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse-{{ app.app_label }}" class="panel-collapse collapse in" role="tabpanel"
-                             aria-labelledby="{{ app.app_label }}">
+                        <div id="collapse-{{ app.label }}" class="panel-collapse collapse in" role="tabpanel"
+                             aria-labelledby="{{ app.label }}">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
                                     {% for model in app.models %}
-                                        <li role="presentation"{% if model.admin_url == request.path %}
+                                        <li role="presentation"{% if model.url == request.path %}
                                             class="active"{% endif %}>
-                                            {% if model.admin_url %}
-                                                <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                                            {% if model.url %}
+                                                <a href="{{ model.url }}">{{ model.label }}</a>
                                             {% else %}
-                                                {{ model.name }}
+                                                {{ model.label }}
                                             {% endif %}
                                         </li>
                                     {% endfor %}
