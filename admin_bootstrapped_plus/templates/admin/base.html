@@ -58,6 +58,27 @@ Email: gkarak@9-dev.com
             }(jQuery));
     //]]>
     </script>
+    <script>
+        var open_flag = true;
+        function open_close_nav() {
+            console.log("click menu bar");
+            if(open_flag) {
+                closeNav();
+            } else {
+                openNav();
+            }
+            open_flag = !open_flag;
+        }
+        function openNav() {
+            document.getElementById("sidebar-wrapper").style.width = "250px";
+            document.getElementById("page-content-wrapper").style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+            document.getElementById("sidebar-wrapper").style.width = "0";
+            document.getElementById("page-content-wrapper").style.marginLeft= "0";
+        }
+    </script>
 </head>
 {% load i18n %}
 
@@ -68,6 +89,9 @@ Email: gkarak@9-dev.com
         <div class="navbar-inner">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    {% block branding-menubar %}
+                    <span class="navbar-brand" style="font-size:24px;padding-right:0px;color:#FFFFFF;cursor:pointer;" onclick="open_close_nav()">&#9776; </span>
+                    {% endblock %}
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
